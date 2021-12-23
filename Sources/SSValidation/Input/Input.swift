@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Input<Settings: InputSettings> {
-    typealias Value = Settings.Result
+    public typealias Value = Settings.Result
 
     public var value: Value?
     public var settings: Settings
