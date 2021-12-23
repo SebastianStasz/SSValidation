@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InputView<ViewModel: InputVM>: View {
+public struct InputView<ViewModel: InputVM>: View {
     typealias Input = ViewModel.InputField
 
     @StateObject private var viewModel = ViewModel()
@@ -25,7 +25,7 @@ struct InputView<ViewModel: InputVM>: View {
         self.prompt = prompt != nil ? Text(prompt!) : nil
     }
 
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             TextField(title, text: $viewModel.text, prompt: prompt)
                 .keyboardType(viewModel.settings.keyboardType)

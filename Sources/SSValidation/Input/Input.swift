@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Input<Settings: InputSettings> {
+public struct Input<Settings: InputSettings> {
     typealias Value = Settings.Result
 
     var value: Value?

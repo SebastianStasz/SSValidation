@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol InputSettings {
+public protocol InputSettings {
     associatedtype Result: Equatable
 
     var keyboardType: UIKeyboardType { get }

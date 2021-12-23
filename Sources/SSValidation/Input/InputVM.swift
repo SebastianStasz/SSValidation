@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol InputVM: ObservableObject {
+public protocol InputVM: ObservableObject {
     associatedtype Settings: InputSettings
     typealias InputField = Input<Settings>
 
@@ -18,7 +18,7 @@ protocol InputVM: ObservableObject {
     init()
 }
 
-extension InputVM {
+public extension InputVM {
     var settings: Settings {
         get { input.settings }
         set { input.settings = newValue }

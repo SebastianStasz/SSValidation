@@ -8,20 +8,20 @@
 import Foundation
 import UIKit
 
-struct NumberInputSettings: InputSettings {
-    typealias Result = Double
+public struct NumberInputSettings: InputSettings {
+    public typealias Result = Double
 
-    let dropFirst: Bool
-    let canBeEmpty: Bool
-    let minValue: Double?
-    let maxValue: Double?
-    let keyboardType: UIKeyboardType
+    public let dropFirst: Bool
+    public let canBeEmpty: Bool
+    public let minValue: Double?
+    public let maxValue: Double?
+    public let keyboardType: UIKeyboardType
 
     var shouldDropFirst: Int {
         dropFirst ? 1 : 0
     }
 
-    init() {
+    public init() {
         dropFirst = true
         canBeEmpty = false
         minValue = nil
@@ -29,11 +29,11 @@ struct NumberInputSettings: InputSettings {
         keyboardType = .decimalPad
     }
 
-    init(dropFirst: Bool = true,
-         canBeEmpty: Bool = false,
-         minValue: Double? = nil,
-         maxValue: Double? = nil,
-         keyboardType: UIKeyboardType = .decimalPad
+    public init(dropFirst: Bool = true,
+                canBeEmpty: Bool = false,
+                minValue: Double? = nil,
+                maxValue: Double? = nil,
+                keyboardType: UIKeyboardType = .decimalPad
     ) {
         self.dropFirst = dropFirst
         self.canBeEmpty = canBeEmpty

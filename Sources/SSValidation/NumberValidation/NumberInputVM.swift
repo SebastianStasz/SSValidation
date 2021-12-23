@@ -8,14 +8,14 @@
 import Foundation
 import SSUtils
 
-final class NumberInputVM: InputVM {
-    typealias Settings = NumberInputSettings
+public final class NumberInputVM: InputVM {
+    public typealias Settings = NumberInputSettings
 
-    @Published var text = ""
-    @Published private(set) var message: String?
-    var input = Input<Settings>()
+    @Published public var text = ""
+    @Published public private(set) var message: String?
+    public var input = Input<Settings>()
 
-    init() {
+    public init() {
         let newText = $text
             .removeDuplicates()
             .map { $0.replacingOccurrences(of: ",", with: ".") }
