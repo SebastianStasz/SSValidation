@@ -10,8 +10,8 @@ import Foundation
 public struct Input<Settings: InputSettings> {
     typealias Value = Settings.Result
 
-    var value: Value?
-    var settings: Settings
+    public var value: Value?
+    public var settings: Settings
 
     public init(value: Value? = nil, settings: Settings = .init()) {
         self.value = value
