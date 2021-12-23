@@ -13,7 +13,7 @@ public struct Input<Settings: InputSettings> {
     var value: Value?
     var settings: Settings
 
-    init(value: Value? = nil, settings: Settings = .init()) {
+    public init(value: Value? = nil, settings: Settings = .init()) {
         self.value = value
         self.settings = settings
     }
