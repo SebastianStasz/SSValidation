@@ -1,5 +1,5 @@
 //
-//  InputView.swift
+//  SampleInputView.swift
 //  SSValidation
 //
 //  Created by Sebastian Staszczyk on 23/12/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct InputView<ViewModel: InputVM>: View {
+struct SampleInputView<ViewModel: InputVM>: View {
     typealias Input = ViewModel.InputField
 
     @StateObject private var viewModel = ViewModel()
@@ -28,15 +28,13 @@ public struct InputView<ViewModel: InputVM>: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             TextField(title, text: $viewModel.text, prompt: prompt)
-                .keyboardType(viewModel.settings.keyboardType)
 
             Text(viewModel.message ?? "")
                 .font(.footnote)
                 .foregroundColor(.red)
                 .opacity(0.8)
         }
-        .onAppear { viewModel.settings = input.settings }
-        .onChange(of: viewModel.value) { input.value = $0 }
+        .asInputView(viewModel: viewModel, input: $input)
     }
 }
 
@@ -46,7 +44,7 @@ public struct InputView<ViewModel: InputVM>: View {
 struct InputView_Previews: PreviewProvider {
     static var previews: some View {
         let input = Input<NumberInputSettings>()
-        InputView<NumberInputVM>(title: "Number input", input: .constant(input))
+        SampleInputView<NumberInputVM>(title: "Number input", input: .constant(input))
             .previewLayout(.sizeThatFits)
     }
 }
