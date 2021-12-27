@@ -12,6 +12,8 @@ enum ValidationMessage {
     case invalid
     case tooSmall(Double)
     case tooBig(Double)
+    case tooShort(Int)
+    case tooLong(Int)
 
     var message: String {
         switch self {
@@ -23,6 +25,10 @@ enum ValidationMessage {
             return "Value must be at least \(minValue.asString)."
         case let .tooBig(maxValue):
             return "Value can not be bigger than \(maxValue.asString)."
+        case let .tooShort(minLength):
+            return "Text must have at least \(minLength) characters."
+        case let .tooLong(maxLength):
+            return "Text can have maximum \(maxLength) characters."
         }
     }
 }

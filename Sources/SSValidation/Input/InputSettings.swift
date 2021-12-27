@@ -10,14 +10,15 @@ import UIKit
 public protocol InputSettings {
     associatedtype Result: Equatable
 
+    var dropFirst: Bool { get }
+    var canBeEmpty: Bool { get }
     var keyboardType: UIKeyboardType { get }
 
-    init(dropFirst: Bool,
-         canBeEmpty: Bool,
-         minValue: Double?,
-         maxValue: Double?,
-         keyboardType: UIKeyboardType
-    )
-
     init()
+}
+
+extension InputSettings {
+    var shouldDropFirst: Int {
+        dropFirst ? 1 : 0
+    }
 }

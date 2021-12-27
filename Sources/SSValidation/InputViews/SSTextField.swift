@@ -18,8 +18,7 @@ public struct SSTextField<ViewModel: InputVM>: View {
 
     public init(title: String,
                 input: Binding<Input>,
-                prompt: String? = nil
-    ) {
+                prompt: String? = nil) {
         self._input = input
         self.title = title
         self.prompt = prompt != nil ? Text(prompt!) : nil
@@ -39,7 +38,12 @@ public struct SSTextField<ViewModel: InputVM>: View {
 struct BaseTextField_Previews: PreviewProvider {
     static var previews: some View {
         let input = Input<NumberInputSettings>()
-        SSTextField<NumberInputVM>(title: "Number input", input: .constant(input))
-            .previewLayout(.sizeThatFits)
+        let textInput = Input<TextInputSettings>()
+
+        Group {
+            SSTextField<NumberInputVM>(title: "Number input", input: .constant(input))
+            SSTextField<TextInputVM>(title: "Text input", input: .constant(textInput))
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
