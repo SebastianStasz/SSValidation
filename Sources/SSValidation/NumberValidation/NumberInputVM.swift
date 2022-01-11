@@ -18,15 +18,15 @@ public final class NumberInputVM: InputVM {
     public init() {
         let newText = $text
             .removeDuplicates()
-            .map { $0.replacingOccurrences(of: ",", with: ".") }
             .scan("") { old, new in
-                (new.isEmpty || new.asDouble.notNil) ? new : old
+                (new.isEmpty || new.replacingOccurrences(of: ",", with: ".").asDouble.notNil) ? new : old
             }
             .delayValidation()
 
         newText.assign(to: &$text)
 
         newText
+            .map { $0.replacingOccurrences(of: ",", with: ".") }
             .map(validate)
             .dropFirst(settings.shouldDropFirst)
             .assign(to: &$message)

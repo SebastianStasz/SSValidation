@@ -25,9 +25,13 @@ public struct SSTextField<ViewModel: InputVM>: View {
     }
     
     public var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             TextField(title, text: $viewModel.text, prompt: prompt)
+
             Text(viewModel.message ?? "")
+                .font(.footnote)
+                .foregroundColor(.red)
+                .accessibility(identifier: "validation_message_id")
         }
         .asInputView(viewModel: viewModel, input: $input)
     }
