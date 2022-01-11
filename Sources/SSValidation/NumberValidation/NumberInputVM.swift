@@ -40,12 +40,12 @@ public final class NumberInputVM: InputVM {
         guard let value = text.asDouble else {
             return ValidationMessage.invalid.message
         }
-        input.value = value
         if let minValue = settings.minValue, value < minValue {
             return ValidationMessage.tooSmall(minValue).message
         } else if let maxValue = settings.maxValue, value > maxValue {
             return ValidationMessage.tooBig(maxValue).message
         }
+        input.value = value
         return nil
     }
 }

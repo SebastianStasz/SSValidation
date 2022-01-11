@@ -30,12 +30,12 @@ public final class TextInputVM: InputVM {
         guard fulfillRequirements(text) else {
             return ValidationMessage.invalid.message
         }
-        input.value = text
         if let minLength = settings.minLength, text.count < minLength {
             return ValidationMessage.tooShort(minLength).message
         } else if let maxLength = settings.maxLength, text.count > maxLength {
             return ValidationMessage.tooLong(maxLength).message
         }
+        input.value = text
         return nil
     }
 
