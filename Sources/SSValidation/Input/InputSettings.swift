@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol InputSettings {
+public protocol InputSettings: Equatable {
     associatedtype Result: Equatable
 
     var dropFirst: Bool { get }

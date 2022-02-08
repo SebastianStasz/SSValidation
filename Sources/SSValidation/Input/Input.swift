@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Input<Settings: InputSettings> {
+public struct Input<Settings: InputSettings>: Equatable {
     public typealias Value = Settings.Result
 
     public var value: Value?
