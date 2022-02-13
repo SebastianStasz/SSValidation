@@ -19,7 +19,7 @@ public final class NumberInputVM: InputVM {
         let newText = $text
             .removeDuplicates()
             .scan("") { old, new in
-                (new.isEmpty || new.replacingOccurrences(of: ",", with: ".").asDouble.notNil) ? new : old
+                (new.isEmpty || new.replacingCommaWithDot.asDouble.notNil) ? new : old
             }
             .delayValidation()
 
@@ -27,8 +27,7 @@ public final class NumberInputVM: InputVM {
 
         newText
             .map { [weak self] text in
-                let text = text.replacingOccurrences(of: ",", with: ".")
-                self?.validate(text)
+                self?.validate(text.replacingCommaWithDot)
             }
             .dropFirst(settings.shouldDropFirst)
             .assign(to: &$message)
