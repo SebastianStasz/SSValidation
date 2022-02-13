@@ -22,7 +22,11 @@ private struct InputViewModifier<ViewModel: InputVM>: ViewModifier {
 
     private func onAppear() {
         viewModel.settings = input.settings
-        viewModel.text = input.settings.initText
+        if let text = input.value as? String {
+            viewModel.text = text
+        } else if let number = input.value as? Double {
+            viewModel.text = number.asString
+        }
     }
 }
 

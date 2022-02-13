@@ -10,10 +10,11 @@ import Foundation
 public struct Input<Settings: InputSettings>: Equatable {
     public typealias Value = Settings.Result
 
-    public internal(set) var value: Value?
+    public var value: Value?
     public var settings: Settings
 
-    public init(settings: Settings = .init()) {
+    public init(value: Value? = nil, settings: Settings = .init()) {
+        self.value = value
         self.settings = settings
     }
 }
