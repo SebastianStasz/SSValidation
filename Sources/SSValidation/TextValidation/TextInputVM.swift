@@ -18,7 +18,9 @@ public final class TextInputVM: InputVM {
         $text
             .dropFirst(settings.shouldDropFirst)
             .removeDuplicates()
-            .map(validate)
+            .map { [weak self] text in
+                self?.validate(text)
+            }
             .assign(to: &$message)
     }
 

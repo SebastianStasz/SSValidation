@@ -26,8 +26,10 @@ public final class NumberInputVM: InputVM {
         newText.assign(to: &$text)
 
         newText
-            .map { $0.replacingOccurrences(of: ",", with: ".") }
-            .map(validate)
+            .map { [weak self] text in
+                let text = text.replacingOccurrences(of: ",", with: ".")
+                self?.validate(text)
+            }
             .dropFirst(settings.shouldDropFirst)
             .assign(to: &$message)
     }
