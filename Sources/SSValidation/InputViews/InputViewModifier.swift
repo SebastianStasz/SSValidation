@@ -16,8 +16,13 @@ private struct InputViewModifier<ViewModel: InputVM>: ViewModifier {
     func body(content: Content) -> some View {
         content
             .keyboardType(viewModel.settings.keyboardType)
-            .onAppear { viewModel.settings = input.settings }
+            .onAppear(perform: onAppear)
             .onChange(of: viewModel.value) { input.value = $0 }
+    }
+
+    private func onAppear() {
+        viewModel.settings = input.settings
+        viewModel.text = input.settings.initText
     }
 }
 
