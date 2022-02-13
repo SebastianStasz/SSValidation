@@ -10,10 +10,10 @@ import UIKit
 public protocol InputSettings: Equatable {
     associatedtype Result: Equatable
 
-    var initText: String { get }
-    var dropFirst: Bool { get }
-    var canBeEmpty: Bool { get }
-    var keyboardType: UIKeyboardType { get }
+    var initText: String { get set }
+    var dropFirst: Bool { get set }
+    var canBeEmpty: Bool { get set }
+    var keyboardType: UIKeyboardType { get set }
 
     init()
 }

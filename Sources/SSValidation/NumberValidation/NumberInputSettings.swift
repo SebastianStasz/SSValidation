@@ -10,12 +10,12 @@ import UIKit
 public struct NumberInputSettings: InputSettings {
     public typealias Result = Double
 
-    public let initText: String
-    public let dropFirst: Bool
-    public let canBeEmpty: Bool
-    public let minValue: Double?
-    public let maxValue: Double?
-    public let keyboardType: UIKeyboardType
+    public var initText: String
+    public var dropFirst: Bool
+    public var canBeEmpty: Bool
+    public var minValue: Double?
+    public var maxValue: Double?
+    public var keyboardType: UIKeyboardType
 
     public init(initText: String = "",
                 dropFirst: Bool = true,

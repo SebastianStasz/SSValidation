@@ -10,13 +10,13 @@ import UIKit
 public struct TextInputSettings: InputSettings {
     public typealias Result = String
 
-    public let initText: String
-    public let dropFirst: Bool
-    public let canBeEmpty: Bool
-    public let minLength: Int?
-    public let maxLength: Int?
-    public let regex: String?
-    public let keyboardType: UIKeyboardType
+    public var initText: String
+    public var dropFirst: Bool
+    public var canBeEmpty: Bool
+    public var minLength: Int?
+    public var maxLength: Int?
+    public var regex: String?
+    public var keyboardType: UIKeyboardType
 
     public init(initText: String = "",
                 dropFirst: Bool = true,
