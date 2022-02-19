@@ -5,13 +5,15 @@
 //  Created by Sebastian Staszczyk on 23/12/2021.
 //
 
+import Combine
 import Foundation
 
 public protocol InputVM: ObservableObject {
     associatedtype Settings: InputSettings
     typealias InputField = Input<Settings>
 
-    var text: String { get set }
+    var onReceiveText: PassthroughSubject<String, Never> { get }
+    var textField: String { get set }
     var message: String? { get }
     var input: InputField { get set }
 

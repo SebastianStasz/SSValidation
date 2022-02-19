@@ -8,6 +8,7 @@
 import UIKit
 
 public struct NumberInputSettings: InputSettings {
+    public typealias InputVM = NumberInputVM
     public typealias Result = Double
 
     public var dropFirst: Bool

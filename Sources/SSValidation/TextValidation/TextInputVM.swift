@@ -5,17 +5,19 @@
 //  Created by Sebastian Staszczyk on 27/12/2021.
 //
 
+import Combine
 import Foundation
 
 public final class TextInputVM: InputVM {
     public typealias Settings = TextInputSettings
+    public let onReceiveText = PassthroughSubject<String, Never>()
 
-    @Published public var text = ""
+    @Published public var textField = ""
     @Published public private(set) var message: String?
     public var input = Input<Settings>()
 
     public init() {
-        $text
+        $textField
             .dropFirst(settings.shouldDropFirst)
             .removeDuplicates()
             .map { [weak self] text in

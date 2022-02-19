@@ -23,8 +23,8 @@ let package = Package(
         .target(
             name: "SSValidation",
             dependencies: ["SSUtils"]),
-        .testTarget(
-            name: "SSValidationTests",
-            dependencies: ["SSValidation"]),
+//        .testTarget(
+//            name: "SSValidationTests",
+//            dependencies: ["SSValidation"]),
     ]
 )

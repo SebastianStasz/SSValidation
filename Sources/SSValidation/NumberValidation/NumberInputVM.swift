@@ -5,31 +5,33 @@
 //  Created by Sebastian Staszczyk on 23/12/2021.
 //
 
+import Combine
 import Foundation
 import SSUtils
 
 public final class NumberInputVM: InputVM {
     public typealias Settings = NumberInputSettings
+    public let onReceiveText = PassthroughSubject<String, Never>()
 
-    @Published public var text = ""
+    @Published public var textField = ""
     @Published public private(set) var message: String?
     public var input = Input<Settings>()
 
     public init() {
-        let newText = $text
+        let newText = onReceiveText
             .removeDuplicates()
             .scan("") { old, new in
-                (new.isEmpty || new.replacingCommaWithDot.asDouble.notNil) ? new : old
+                let newText = new.replacingCommaWithDot
+                return (new.isEmpty || newText.asDouble.notNil) ? new : old
             }
-            .delayValidation()
 
-        newText.assign(to: &$text)
+        newText.assign(to: &$textField)
 
         newText
-            .map { [weak self] text in
-                self?.validate(text.replacingCommaWithDot)
-            }
             .dropFirst(settings.shouldDropFirst)
+            .map { [weak self] text in
+                self?.validate(text)
+            }
             .assign(to: &$message)
     }
 

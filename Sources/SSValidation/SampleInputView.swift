@@ -27,7 +27,7 @@ struct SampleInputView<ViewModel: InputVM>: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            TextField(title, text: $viewModel.text, prompt: prompt)
+            TextField(title, text: $viewModel.textField, prompt: prompt)
 
             Text(viewModel.message ?? "")
                 .font(.footnote)

@@ -5,6 +5,7 @@
 //  Created by Sebastian Staszczyk on 24/12/2021.
 //
 
+import Combine
 import SwiftUI
 
 private struct InputViewModifier<ViewModel: InputVM>: ViewModifier {
@@ -18,14 +19,17 @@ private struct InputViewModifier<ViewModel: InputVM>: ViewModifier {
             .keyboardType(viewModel.settings.keyboardType)
             .onAppear(perform: onAppear)
             .onChange(of: viewModel.value) { input.value = $0 }
+            .onReceive(Just(viewModel.textField)) { viewModel.onReceiveText.send($0) }
     }
 
     private func onAppear() {
         viewModel.settings = input.settings
         if let text = input.value as? String {
-            viewModel.text = text
+            viewModel.textField = text
         } else if let number = input.value as? Double {
-            viewModel.text = number.asString
+            viewModel.textField = number.asString
+        } else {
+            viewModel.textField = ""
         }
     }
 }

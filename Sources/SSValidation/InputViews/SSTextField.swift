@@ -26,7 +26,7 @@ public struct SSTextField<ViewModel: InputVM>: View {
     
     public var body: some View {
         VStack(alignment: .leading) {
-            TextField(title, text: $viewModel.text, prompt: prompt)
+            TextField(title, text: $viewModel.textField, prompt: prompt)
 
             Text(viewModel.message ?? "")
                 .font(.footnote)
@@ -40,15 +40,15 @@ public struct SSTextField<ViewModel: InputVM>: View {
 
 // MARK: - Preview
 
-struct BaseTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        let input = Input<NumberInputSettings>()
-        let textInput = Input<TextInputSettings>()
-
-        Group {
-            SSTextField<NumberInputVM>(title: "Number input", input: .constant(input))
-            SSTextField<TextInputVM>(title: "Text input", input: .constant(textInput))
-        }
-        .previewLayout(.sizeThatFits)
-    }
-}
+//struct BaseTextField_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let input = Input<NumberInputSettings>()
+//        let textInput = Input<TextInputSettings>()
+//
+//        Group {
+//            SSTextField<NumberInputVM>(title: "Number input", input: .constant(input))
+//            SSTextField<TextInputVM>(title: "Text input", input: .constant(textInput))
+//        }
+//        .previewLayout(.sizeThatFits)
+//    }
+//}
