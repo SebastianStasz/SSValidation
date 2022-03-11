@@ -25,7 +25,7 @@ public struct SSTextField<ViewModel: InputVM>: View {
     }
     
     public var body: some View {
-        VStack(alignment: .leading) {
+        VStack {
             TextField(title, text: $viewModel.textField, prompt: prompt)
 
             Text(viewModel.message ?? "")

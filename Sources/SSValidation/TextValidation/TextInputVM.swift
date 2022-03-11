@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import SSUtils
 
 public final class TextInputVM: InputVM {
     public typealias Settings = TextInputSettings
@@ -17,16 +18,23 @@ public final class TextInputVM: InputVM {
     public var input = Input<Settings>()
 
     public init() {
-        $textField
+        let newText = onReceiveText
+            .removeDuplicates()
+            .map { $0.trimLeadingSpaces }
+
+        newText.assign(to: &$textField)
+
+        newText
             .dropFirst(settings.shouldDropFirst)
             .removeDuplicates()
             .map { [weak self] text in
-                self?.validate(text)
+                 self?.validate(text)
             }
             .assign(to: &$message)
     }
 
     private func validate(_ text: String) -> String? {
+        let text = text.trim
         input.value = nil
         if !settings.canBeEmpty && text.isEmpty {
             return ValidationMessage.empty.message
@@ -38,6 +46,9 @@ public final class TextInputVM: InputVM {
             return ValidationMessage.tooShort(minLength).message
         } else if let maxLength = settings.maxLength, text.count > maxLength {
             return ValidationMessage.tooLong(maxLength).message
+        }
+        if settings.blocked.values.contains(text) {
+            return settings.blocked.message
         }
         input.value = text
         return nil

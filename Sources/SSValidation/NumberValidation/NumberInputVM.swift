@@ -39,6 +39,8 @@ public final class NumberInputVM: InputVM {
         input.value = nil
         if !settings.canBeEmpty && text.isEmpty {
             return ValidationMessage.empty.message
+        } else if settings.canBeEmpty && text.isEmpty {
+            return nil
         }
         guard let value = text.asDouble else {
             return ValidationMessage.invalid.message
