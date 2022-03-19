@@ -8,17 +8,25 @@
 import SwiftUI
 
 public struct InputField: View {
-    @State private var text = ""
     @ObservedObject private var viewModel: InputVM
-    private let title: String
+    @State private var text = ""
 
-    public init(_ title: String, viewModel: InputVM) {
+    private let title: String
+    private let prompt: Text?
+
+    public init(_ title: String, viewModel: InputVM, prompt: String? = nil) {
         self.title = title
         self.viewModel = viewModel
+
+        if let prompt = prompt {
+            self.prompt = Text(prompt)
+        } else {
+            self.prompt = nil
+        }
     }
 
     public var body: some View {
-        TextField(title, text: $text)
+        TextField(title, text: $text, prompt: prompt)
             .onChange(of: text, perform: textChanged(to:))
     }
 

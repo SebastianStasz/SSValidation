@@ -13,6 +13,7 @@ public class InputVM: ObservableObject {
     private let type: InputType
 
     @Published var textInput = ""
+    @Published public private(set) var validationMessage: String?
 
     public init(type: InputType) {
         self.type = type
