@@ -11,8 +11,10 @@ import SSUtils
 
 public class InputVM<T>: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    public var textValidator: Validator<String>
-    public var resultValidator: Validator<T>
+
+    let dropFirst: Bool
+    let allowedTextRegex: String?
+    let validator: Validator<String>
 
     @Published public private(set) var validationState: ValidationState = .valid
     @Published public private(set) var validationMessage: String?
@@ -20,19 +22,18 @@ public class InputVM<T>: ObservableObject {
     @Published var textInput = ""
 
     public init(
-        textValidator: Validator<String> = .notEmpty(),
-        resultValidator: Validator<T> = .alwaysValid()
+        dropFirst: Bool = true,
+        allowedTextRegex: String? = nil,
+        validator: Validator<String> = .notEmpty()
     ) {
-        self.textValidator = textValidator
-        self.resultValidator = resultValidator
-        bind()
-    }
+        self.dropFirst = dropFirst
+        self.allowedTextRegex = allowedTextRegex
+        self.validator = validator
 
-    private func bind() {
         $textInput
-            .dropFirst(1)
+            .dropFirst(dropFirst ? 1 : 0)
             .compactMap { [weak self] allowedText in
-                self?.textValidator.performValidation(on: allowedText)
+                self?.validator.performValidation(on: allowedText)
             }
             .assign(to: &$validationState)
 
@@ -43,6 +44,11 @@ public class InputVM<T>: ObservableObject {
 
     public func result() -> Driver<T?> {
         $resultValue.asDriver
+    }
+
+    func fulfillRequirements(_ text: String) -> Bool {
+        guard let regex = allowedTextRegex else { return true }
+        return text.matches(regex)
     }
 
     func isValueAllowed(_ value: String) -> Bool {

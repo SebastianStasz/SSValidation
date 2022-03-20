@@ -12,10 +12,11 @@ import SSUtils
 public class DoubleInputVM: InputVM<Double> {
 
     public override init(
-        textValidator: Validator<String> = .notEmpty(),
-        resultValidator: Validator<Double> = .alwaysValid()
+        dropFirst: Bool = true,
+        allowedTextRegex: String? = nil,
+        validator: Validator<String> = .notEmpty()
     ) {
-        super.init(textValidator: textValidator, resultValidator: resultValidator)
+        super.init(dropFirst: dropFirst, allowedTextRegex: allowedTextRegex, validator: validator)
 
         Publishers.CombineLatest($validationState, $textInput)
             .map { $0.0.isValid ? Double($0.1) : nil }
@@ -23,6 +24,6 @@ public class DoubleInputVM: InputVM<Double> {
     }
 
     override func isValueAllowed(_ value: String) -> Bool {
-        value.isEmpty || value.replacingCommaWithDot.asDouble.notNil
+        value.isEmpty || (value.replacingCommaWithDot.asDouble.notNil && fulfillRequirements(value))
     }
 }

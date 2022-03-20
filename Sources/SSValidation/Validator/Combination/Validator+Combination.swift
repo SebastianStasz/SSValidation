@@ -16,4 +16,15 @@ public extension Validator {
             return otherValidation.performValidation(on: value)
         }
     }
+
+    func and<OtherType>(
+        _ otherValidation: Validator<OtherType>,
+        byMapping mapper: @escaping (Source) -> OtherType?,
+        errorMessage: @autoclosure @escaping () -> String
+    ) -> Validator {
+        and(Validator { source in
+            guard let target = mapper(source) else { return .invalid(msg: errorMessage()) }
+            return otherValidation.performValidation(on: target)
+        })
+    }
 }

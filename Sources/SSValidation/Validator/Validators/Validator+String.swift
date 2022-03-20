@@ -18,7 +18,7 @@ public extension Validator where Source == String {
     }
 
     static func matches(regex: String, errorMessage: @autoclosure @escaping () -> String = ValidationMessage.invalid) -> Validator {
-        Validator { !NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: $0) ? .invalid(msg: errorMessage()) : .valid }
+        Validator { !$0.matches(regex) ? .invalid(msg: errorMessage()) : .valid }
     }
 
     static func minLength(_ minLength: Int, errorMessage: @escaping (Int) -> String = ValidationMessage.tooShort) -> Validator {
