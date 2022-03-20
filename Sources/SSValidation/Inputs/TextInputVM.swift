@@ -8,16 +8,11 @@
 import Foundation
 import SSUtils
 
-public class TextInputVM: InputVM {
-    @Published private  var resultValue: String?
+public class TextInputVM: InputVM<String> {
 
     override func isValueAllowed(_ value: String) -> Bool {
         resultValue = fulfillRequirements(value, regex: nil) ? value : nil
         return value.isEmpty || resultValue.notNil
-    }
-
-    public func result() -> Driver<String?> {
-        $resultValue.asDriver
     }
 
     private func fulfillRequirements(_ text: String, regex: String?) -> Bool {

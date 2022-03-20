@@ -9,38 +9,35 @@ import Combine
 import Foundation
 import SSUtils
 
-public class InputVM: ObservableObject {
-    var cancellables: Set<AnyCancellable> = []
+public class InputVM<T>: ObservableObject {
+    private var cancellables: Set<AnyCancellable> = []
+    public var validator: Validator<String>
 
-    @Published private var validationMessage: ValidationMessage?
+    @Published public private(set) var validationState: ValidationState = .valid
+    @Published public private(set) var validationMessage: String?
+    @Published public internal(set)var resultValue: T?
     @Published var textInput = ""
 
-    @Published public private(set) var message: String?
-    public var settings: InputSettings
-
-    public init(settings: InputSettings = .init()) {
-        self.settings = settings
+    public init(validator: Validator<String> = .notEmpty()) {
+        self.validator = validator
 
         $textInput
-            .dropFirst(settings.shouldDropFirst)
-            .sink { [weak self] allowedText in
-                self?.validationMessage = self?.validateValue(allowedText)
+            .dropFirst(1)
+            .compactMap { [weak self] allowedText in
+                self?.validator.performValidation(on: allowedText)
             }
-            .store(in: &cancellables)
+            .assign(to: &$validationState)
 
-        $validationMessage
-            .map { $0?.message }
-            .assign(to: &$message)
+        $validationState
+            .map { $0.validationMessage }
+            .assign(to: &$validationMessage)
+    }
+
+    public func result() -> Driver<T?> {
+        $resultValue.asDriver
     }
 
     func isValueAllowed(_ value: String) -> Bool {
         true
-    }
-
-    private func validateValue(_ value: String) -> ValidationMessage? {
-        if !settings.canBeEmpty && value.isEmpty {
-            return .empty
-        }
-        return nil
     }
 }

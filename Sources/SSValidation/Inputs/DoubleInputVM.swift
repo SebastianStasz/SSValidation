@@ -8,15 +8,10 @@
 import Foundation
 import SSUtils
 
-public class DoubleInputVM: InputVM {
-    @Published private var resultValue: Double?
+public class DoubleInputVM: InputVM<Double> {
 
     override func isValueAllowed(_ value: String) -> Bool {
         resultValue = value.replacingCommaWithDot.asDouble
         return value.isEmpty || resultValue.notNil
-    }
-
-    public func result() -> Driver<Double?> {
-        $resultValue.asDriver
     }
 }

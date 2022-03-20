@@ -1,13 +1,13 @@
 //
 //  ValidationMessage.swift
-//  SSUtils
+//  SSValidation
 //
 //  Created by Sebastian Staszczyk on 23/12/2021.
 //
 
 import Foundation
 
-enum ValidationMessage {
+public enum ValidationMessage {
     case empty
     case invalid
     case tooSmall(Double)
@@ -15,7 +15,7 @@ enum ValidationMessage {
     case tooShort(Int)
     case tooLong(Int)
 
-    var message: String {
+    public var message: String {
         switch self {
         case .empty:
             return "Value can not be empty."

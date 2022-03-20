@@ -8,15 +8,10 @@
 import Foundation
 import SSUtils
 
-public class IntInputVM: InputVM {
-    @Published private var resultValue: Int?
+public class IntInputVM: InputVM<Int> {
 
     override func isValueAllowed(_ value: String) -> Bool {
         resultValue = value.asInt
         return value.isEmpty || resultValue.notNil
-    }
-
-    public func result() -> Driver<Int?> {
-        $resultValue.asDriver
     }
 }

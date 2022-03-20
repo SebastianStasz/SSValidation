@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-public struct InputField: View {
-    @ObservedObject private var viewModel: InputVM
+public struct InputField<T>: View {
+    @ObservedObject private var viewModel: InputVM<T>
     @State private var text = ""
 
     private let title: String
     private let prompt: Text?
 
-    public init(_ title: String, viewModel: InputVM, prompt: String? = nil) {
+    public init(_ title: String, viewModel: InputVM<T>, prompt: String? = nil) {
         self.title = title
         self.viewModel = viewModel
 
@@ -43,6 +43,6 @@ public struct InputField: View {
 
 struct InputField_Previews: PreviewProvider {
     static var previews: some View {
-        InputField("Text", viewModel: InputVM())
+        InputField("Text", viewModel: DoubleInputVM())
     }
 }
