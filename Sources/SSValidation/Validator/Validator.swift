@@ -19,4 +19,8 @@ extension Validator {
     public func performValidation(on object: Source) -> ValidationState {
         return validator(object)
     }
+
+    public static func alwaysValid() -> Validator {
+        Validator { _ in .valid }
+    }
 }

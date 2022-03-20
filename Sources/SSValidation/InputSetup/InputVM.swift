@@ -11,20 +11,28 @@ import SSUtils
 
 public class InputVM<T>: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    public var validator: Validator<String>
+    public var textValidator: Validator<String>
+    public var resultValidator: Validator<T>
 
     @Published public private(set) var validationState: ValidationState = .valid
     @Published public private(set) var validationMessage: String?
-    @Published public internal(set)var resultValue: T?
+    @Published public internal(set) var resultValue: T?
     @Published var textInput = ""
 
-    public init(validator: Validator<String> = .notEmpty()) {
-        self.validator = validator
+    public init(
+        textValidator: Validator<String> = .notEmpty(),
+        resultValidator: Validator<T> = .alwaysValid()
+    ) {
+        self.textValidator = textValidator
+        self.resultValidator = resultValidator
+        bind()
+    }
 
+    private func bind() {
         $textInput
             .dropFirst(1)
             .compactMap { [weak self] allowedText in
-                self?.validator.performValidation(on: allowedText)
+                self?.textValidator.performValidation(on: allowedText)
             }
             .assign(to: &$validationState)
 
