@@ -43,6 +43,6 @@ public struct InputField: View {
 
 struct InputField_Previews: PreviewProvider {
     static var previews: some View {
-        InputField("Text", viewModel: InputVM(type: .text()))
+        InputField("Text", viewModel: InputVM())
     }
 }

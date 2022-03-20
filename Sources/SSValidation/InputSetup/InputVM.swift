@@ -7,17 +7,15 @@
 
 import Combine
 import Foundation
+import SSUtils
 
 public class InputVM: ObservableObject {
-    private var cancellables: Set<AnyCancellable> = []
-    private let type: InputType
+    var cancellables: Set<AnyCancellable> = []
 
     @Published var textInput = ""
-    @Published public private(set) var validationMessage: String?
+    @Published public internal(set) var validationMessage: String?
 
-    public init(type: InputType) {
-        self.type = type
-
+    public init() {
         $textInput.sink { text in
             print(text)
         }
@@ -25,6 +23,6 @@ public class InputVM: ObservableObject {
     }
 
     func isValueAllowed(_ value: String) -> Bool {
-        value.isEmpty ? true : type.isValueAllowed(value)
+        true
     }
 }
