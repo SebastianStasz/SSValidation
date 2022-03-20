@@ -22,6 +22,10 @@ public extension ValidationState {
         }
     }
 
+    var isNotValid: Bool {
+        !isValid
+    }
+
     var validationMessage: String? {
         guard case let .invalid(msg) = self else { return nil }
         return msg

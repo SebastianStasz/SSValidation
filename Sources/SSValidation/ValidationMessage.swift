@@ -31,4 +31,8 @@ public enum ValidationMessage {
             return "Text can have maximum \(maxLength) characters."
         }
     }
+
+    public static func tooShort(_ minLength: Int) -> String {
+        "Text must have at least \(minLength.asString) characters."
+    }
 }
