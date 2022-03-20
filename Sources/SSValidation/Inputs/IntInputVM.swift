@@ -9,10 +9,14 @@ import Foundation
 import SSUtils
 
 public class IntInputVM: InputVM {
-    @Published public private(set) var result: Int?
+    @Published private var resultValue: Int?
 
     override func isValueAllowed(_ value: String) -> Bool {
-        result = value.asInt
-        return value.isEmpty || result.notNil
+        resultValue = value.asInt
+        return value.isEmpty || resultValue.notNil
+    }
+
+    public func result() -> Driver<Int?> {
+        $resultValue.asDriver
     }
 }
