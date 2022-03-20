@@ -9,14 +9,10 @@ import Foundation
 import SSUtils
 
 public class DoubleInputVM: InputVM {
-    @Published private var resultValue: Double?
+    @Published public private(set) var result: Double?
 
     override func isValueAllowed(_ value: String) -> Bool {
-        resultValue = value.replacingCommaWithDot.asDouble
-        return value.isEmpty || resultValue.notNil
-    }
-
-    public func getResult() -> Driver<Double?> {
-        $resultValue.asDriver
+        result = value.replacingCommaWithDot.asDouble
+        return value.isEmpty || result.notNil
     }
 }
