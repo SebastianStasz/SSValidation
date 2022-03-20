@@ -9,8 +9,8 @@ import Foundation
 
 public extension Validator where Source == String {
 
-    static func notEmpty(_ message: @autoclosure @escaping () -> String = ValidationMessage.empty) -> Validator {
-        Validator { $0.isEmpty ? .invalid(msg: message()) : .valid }
+    static func notEmpty(_ errorMessage: @autoclosure @escaping () -> String = ValidationMessage.empty) -> Validator {
+        Validator { $0.isEmpty ? .invalid(msg: errorMessage()) : .valid }
     }
 
     static func isEqual(to comparedText: String, errorMessage: @autoclosure @escaping () -> String) -> Validator {
@@ -21,12 +21,12 @@ public extension Validator where Source == String {
         Validator { !NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: $0) ? .invalid(msg: errorMessage()) : .valid }
     }
 
-    static func minLength(_ minLength: Int, tooShortMessage: @escaping (Int) -> String = ValidationMessage.tooShort) -> Validator {
-        Validator { $0.count < minLength ? .invalid(msg: tooShortMessage(minLength)) : .valid }
+    static func minLength(_ minLength: Int, errorMessage: @escaping (Int) -> String = ValidationMessage.tooShort) -> Validator {
+        Validator { $0.count < minLength ? .invalid(msg: errorMessage(minLength)) : .valid }
     }
 
-    static func maxLength(_ maxLength: Int, tooLongMessage: @escaping (Int) -> String = ValidationMessage.tooLong) -> Validator {
-        Validator { $0.count > maxLength ? .invalid(msg: tooLongMessage(maxLength)) : .valid }
+    static func maxLength(_ maxLength: Int, errorMessage: @escaping (Int) -> String = ValidationMessage.tooLong) -> Validator {
+        Validator { $0.count > maxLength ? .invalid(msg: errorMessage(maxLength)) : .valid }
     }
 
     static func lengthBetween(
@@ -34,7 +34,7 @@ public extension Validator where Source == String {
         tooShortMessage: @escaping (Int) -> String = ValidationMessage.tooShort,
         tooLongMessage: @escaping (Int) -> String = ValidationMessage.tooLong
     ) -> Validator {
-        minLength(range.lowerBound, tooShortMessage: tooShortMessage)
-            .and(maxLength(range.upperBound, tooLongMessage: tooLongMessage))
+        minLength(range.lowerBound, errorMessage: tooShortMessage)
+            .and(maxLength(range.upperBound, errorMessage: tooLongMessage))
     }
 }

@@ -26,4 +26,12 @@ public struct ValidationMessage {
     public static func tooLong(_ maxLength: Int) -> String {
         "Text can have maximum \(maxLength.asString) characters."
     }
+
+    public static func tooSmall(_ minValue: String) -> String {
+        "Value can not be smaller than \(minValue)."
+    }
+
+    public static func tooBig(_ maxValue: String) -> String {
+        "Value can not be greater than \(maxValue)."
+    }
 }
