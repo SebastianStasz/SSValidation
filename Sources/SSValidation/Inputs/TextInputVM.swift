@@ -15,7 +15,10 @@ public class TextInputVM: InputVM<String> {
         super.init(settings: settings)
 
         Publishers.CombineLatest($validationState, $textInput)
-            .map { $0.0.isValid ? $0.1.trim : nil }
+            .map {
+                let text = $0.1.trim
+                return $0.0.isValid ? (text.isEmpty ? nil : text) : nil
+            }
             .assign(to: &$resultValue)
     }
 
