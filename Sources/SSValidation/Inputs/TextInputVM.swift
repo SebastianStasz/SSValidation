@@ -11,16 +11,20 @@ import SSUtils
 
 public class TextInputVM: InputVM<String> {
 
-    public override init(
+    public init(with settings: InputSettings) {
+        super.init(settings: settings)
+
+        Publishers.CombineLatest($validationState, $textInput)
+            .map { $0.0.isValid ? $0.1.trim : nil }
+            .assign(to: &$resultValue)
+    }
+
+    convenience public init(
         dropFirst: Bool = true,
         allowedTextRegex: String? = nil,
         validator: Validator<String> = .notEmpty()
     ) {
-        super.init(dropFirst: dropFirst, allowedTextRegex: allowedTextRegex, validator: validator)
-
-        Publishers.CombineLatest($validationState, $textInput)
-            .map { $0.0.isValid ? $0.1 : nil }
-            .assign(to: &$resultValue)
+        self.init(with: .init(dropFirst: dropFirst, allowedTextRegex: allowedTextRegex, validator: validator))
     }
 
     override func isValueAllowed(_ value: String) -> Bool {

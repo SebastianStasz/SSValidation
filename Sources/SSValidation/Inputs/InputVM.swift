@@ -11,30 +11,19 @@ import SSUtils
 
 public class InputVM<T>: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-
-    let dropFirst: Bool
-    let allowedTextRegex: String?
-    let validator: Validator<String>
+    private let settings: InputSettings
 
     @Published public private(set) var validationState: ValidationState = .valid
     @Published public private(set) var validationMessage: String?
     @Published public internal(set) var resultValue: T?
     @Published var textInput = ""
 
-    public init(
-        dropFirst: Bool = true,
-        allowedTextRegex: String? = nil,
-        validator: Validator<String> = .notEmpty()
-    ) {
-        self.dropFirst = dropFirst
-        self.allowedTextRegex = allowedTextRegex
-        self.validator = validator
+    init(settings: InputSettings = .init()) {
+        self.settings = settings
 
         $textInput
-            .dropFirst(dropFirst ? 1 : 0)
-            .compactMap { [weak self] allowedText in
-                self?.validator.performValidation(on: allowedText)
-            }
+            .dropFirst(settings.dropFirst ? 1 : 0)
+            .compactMap { settings.validator.performValidation(on: $0.trim) }
             .assign(to: &$validationState)
 
         $validationState
@@ -47,7 +36,7 @@ public class InputVM<T>: ObservableObject {
     }
 
     func fulfillRequirements(_ text: String) -> Bool {
-        guard let regex = allowedTextRegex else { return true }
+        guard let regex = settings.allowedTextRegex else { return true }
         return text.matches(regex)
     }
 
