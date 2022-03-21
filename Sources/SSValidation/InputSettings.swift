@@ -8,15 +8,18 @@
 import Foundation
 
 public struct InputSettings {
+    let initialText: String?
     let dropFirst: Bool
     let allowedTextRegex: String?
     let validator: Validator<String>
 
     public init(
+        initialText: String? = nil,
         dropFirst: Bool = true,
         allowedTextRegex: String? = nil,
         validator: Validator<String> = .notEmpty()
     ) {
+        self.initialText = initialText
         self.dropFirst = dropFirst
         self.allowedTextRegex = allowedTextRegex
         self.validator = validator

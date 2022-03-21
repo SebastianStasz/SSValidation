@@ -16,17 +16,18 @@ public class InputVM<T>: ObservableObject {
     @Published public private(set) var validationState: ValidationState = .valid
     @Published public private(set) var validationMessage: String?
     @Published public internal(set) var resultValue: T?
-    @Published var textInput = ""
+    @Published var textInput: String
 
     init(settings: InputSettings = .init()) {
         self.settings = settings
+        textInput = settings.initialText ?? ""
 
         $textInput
-            .dropFirst(settings.dropFirst ? 1 : 0)
             .compactMap { settings.validator.performValidation(on: $0.trim) }
             .assign(to: &$validationState)
 
         $validationState
+            .dropFirst(settings.dropFirst ? 1 : 0)
             .map { $0.validationMessage }
             .assign(to: &$validationMessage)
     }
