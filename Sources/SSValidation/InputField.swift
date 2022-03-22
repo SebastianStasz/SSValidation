@@ -9,7 +9,6 @@ import SwiftUI
 
 public struct InputField<T>: View {
     @ObservedObject private var viewModel: InputVM<T>
-    @State private var text = ""
 
     private let title: String
     private let prompt: Text?
@@ -26,16 +25,8 @@ public struct InputField<T>: View {
     }
 
     public var body: some View {
-        TextField(title, text: $text, prompt: prompt)
-            .onChange(of: text, perform: textChanged(to:))
-    }
-
-    private func textChanged(to newText: String) {
-        if viewModel.isValueAllowed(newText) {
-            viewModel.textInput = newText
-        } else {
-            text = viewModel.textInput
-        }
+        TextField(title, text: $viewModel.textInput, prompt: prompt)
+            .onChange(of: viewModel.textInput, perform: viewModel.textChanged(to:))
     }
 }
 

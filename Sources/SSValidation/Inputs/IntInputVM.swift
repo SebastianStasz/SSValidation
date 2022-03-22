@@ -14,7 +14,7 @@ public class IntInputVM: InputVM<Int> {
     public init(with settings: InputSettings) {
         super.init(settings: settings)
 
-        Publishers.CombineLatest($validationState, $textInput)
+        Publishers.CombineLatest($validationState, $allowedText)
             .map { $0.0.isValid ? Int($0.1) : nil }
             .assign(to: &$resultValue)
     }
