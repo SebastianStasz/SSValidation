@@ -23,11 +23,12 @@ public class InputVM<T>: ObservableObject {
         textInput = settings.initialValue ?? ""
 
         $textInput
-            .compactMap { settings.validator.performValidation(on: $0.trim) }
+            .map { settings.validator.performValidation(on: $0.trim) }
             .assign(to: &$validationState)
 
         $validationState
-            .dropFirst(settings.dropFirst ? 1 : 0)
+            .dropFirst(settings.dropFirst)
+            .removeDuplicates()
             .map { $0.validationMessage }
             .assign(to: &$validationMessage)
     }

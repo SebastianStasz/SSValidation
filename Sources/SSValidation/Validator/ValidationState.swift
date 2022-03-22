@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ValidationState {
+public enum ValidationState: Equatable {
     case valid
     case invalid(msg: String)
 }
