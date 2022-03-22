@@ -20,11 +20,12 @@ public class DoubleInputVM: InputVM<Double> {
     }
 
     public convenience init(
+        initialValue: String? = nil,
         dropFirst: Bool = true,
         allowedTextRegex: String? = nil,
         validator: Validator<String> = .notEmpty()
     ) {
-        self.init(with: .init(dropFirst: dropFirst, allowedTextRegex: allowedTextRegex, validator: validator))
+        self.init(with: .init(initialValue: initialValue, dropFirst: dropFirst, allowedTextRegex: allowedTextRegex, validator: validator))
     }
 
     override func isValueAllowed(_ value: String) -> Bool {

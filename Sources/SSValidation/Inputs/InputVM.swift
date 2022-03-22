@@ -20,7 +20,7 @@ public class InputVM<T>: ObservableObject {
 
     init(settings: InputSettings = .init()) {
         self.settings = settings
-        textInput = settings.initialText ?? ""
+        textInput = settings.initialValue ?? ""
 
         $textInput
             .compactMap { settings.validator.performValidation(on: $0.trim) }
