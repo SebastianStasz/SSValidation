@@ -28,6 +28,10 @@ public class IntInputVM: InputVM<Int> {
         self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator))
     }
 
+    public func setValue(to value: Int?) {
+        setText(value?.asString)
+    }
+
     override func isValueAllowed(_ value: String) -> Bool {
         value.isEmpty || (value.asInt.notNil && fulfillRequirements(value))
     }

@@ -35,7 +35,7 @@ public class InputVM<T>: ObservableObject {
             .assign(to: &$validationMessage)
     }
 
-    public func setText(to text: String?) {
+    func setText(_ text: String?) {
         guard let text = text else { return }
         textInput = text
     }

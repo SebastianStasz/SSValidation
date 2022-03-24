@@ -31,6 +31,10 @@ public class TextInputVM: InputVM<String> {
         self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator))
     }
 
+    public func setText(to text: String?) {
+        setText(text)
+    }
+
     override func isValueAllowed(_ value: String) -> Bool {
         value.isEmpty || fulfillRequirements(value)
     }
