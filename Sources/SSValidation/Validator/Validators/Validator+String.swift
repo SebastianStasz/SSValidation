@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SSUtils
 
 public extension Validator where Source == String {
 
@@ -13,8 +14,12 @@ public extension Validator where Source == String {
         Validator { $0.isEmpty ? .invalid(msg: errorMessage()) : .valid }
     }
 
-    static func isEqual(to comparedText: String, errorMessage: @autoclosure @escaping () -> String) -> Validator {
-        Validator { $0 != comparedText ? .invalid(msg: errorMessage()) : .valid }
+    static func isEqual(to comparedText: String, caseSensitive: Bool = false, errorMessage: @autoclosure @escaping () -> String) -> Validator {
+        Validator { $0.isEqualLocalizedCompare(to: comparedText, caseSensitive: caseSensitive) ? .invalid(msg: errorMessage()) : .valid }
+    }
+
+    static func isNotEqual(to comparedTexts: [String], caseSensitive: Bool = false, errorMessage: @autoclosure @escaping () -> String) -> Validator {
+        Validator { comparedTexts.containsLocalizedCompare(to: $0, caseSensitive: caseSensitive) ? .invalid(msg: errorMessage()) : .valid }
     }
 
     static func matches(regex: String, errorMessage: @autoclosure @escaping () -> String = ValidationMessage.invalid) -> Validator {
