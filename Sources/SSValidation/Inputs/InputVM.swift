@@ -35,8 +35,17 @@ public class InputVM<T>: ObservableObject {
             .assign(to: &$validationMessage)
     }
 
+    public func setText(to text: String?) {
+        guard let text = text else { return }
+        textInput = text
+    }
+
     public func result() -> Driver<T?> {
         $resultValue.asDriver
+    }
+
+    public func assignResult<Object: CombineHelper>(to keyPath: ReferenceWritableKeyPath<Object, T?>, on object: Object) {
+        result().weakAssign(to: keyPath, on: object)
     }
 
     func textChanged(to newText: String) {
