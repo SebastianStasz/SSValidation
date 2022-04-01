@@ -26,6 +26,7 @@ public struct InputField<T>: View {
 
     public var body: some View {
         TextField(title, text: $viewModel.textInput, prompt: prompt)
+            .keyboardType(viewModel.keyboardType)
             .onChange(of: viewModel.textInput, perform: viewModel.textChanged(to:))
     }
 }

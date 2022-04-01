@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import SSUtils
+import UIKit
 
 public class IntInputVM: InputVM<Int> {
 
@@ -23,9 +24,10 @@ public class IntInputVM: InputVM<Int> {
         initialValue: String? = nil,
         dropFirstValidationMessage: Bool = true,
         allowedTextRegex: String? = nil,
-        validator: Validator<String> = .notEmpty()
+        validator: Validator<String> = .notEmpty(),
+        keyboardType: UIKeyboardType? = nil
     ) {
-        self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator))
+        self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator, keyboardType: keyboardType))
     }
 
     public func setValue(to value: Int?) {
@@ -34,5 +36,9 @@ public class IntInputVM: InputVM<Int> {
 
     override func isValueAllowed(_ value: String) -> Bool {
         value.isEmpty || (value.asInt.notNil && fulfillRequirements(value))
+    }
+
+    override var defaultKeyboardType: UIKeyboardType {
+        .numberPad
     }
 }

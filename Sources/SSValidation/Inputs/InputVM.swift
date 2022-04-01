@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import SSUtils
+import UIKit
 
 public class InputVM<T>: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -63,6 +64,14 @@ public class InputVM<T>: ObservableObject {
 
     func isValueAllowed(_ value: String) -> Bool {
         true
+    }
+
+    var defaultKeyboardType: UIKeyboardType {
+        .default
+    }
+
+    var keyboardType: UIKeyboardType {
+        settings.keyboardType ?? defaultKeyboardType
     }
 }
 

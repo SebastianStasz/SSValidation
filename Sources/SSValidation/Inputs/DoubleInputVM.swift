@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import SSUtils
+import UIKit
 
 public class DoubleInputVM: InputVM<Double> {
 
@@ -23,9 +24,10 @@ public class DoubleInputVM: InputVM<Double> {
         initialValue: String? = nil,
         dropFirstValidationMessage: Bool = true,
         allowedTextRegex: String? = nil,
-        validator: Validator<String> = .notEmpty()
+        validator: Validator<String> = .notEmpty(),
+        keyboardType: UIKeyboardType? = nil
     ) {
-        self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator))
+        self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator, keyboardType: keyboardType))
     }
 
     public func setValue(to value: Double?) {
@@ -34,5 +36,9 @@ public class DoubleInputVM: InputVM<Double> {
 
     override func isValueAllowed(_ value: String) -> Bool {
         value.isEmpty || (value.replacingCommaWithDot.asDouble.notNil && fulfillRequirements(value))
+    }
+
+    override var defaultKeyboardType: UIKeyboardType {
+        .decimalPad
     }
 }
