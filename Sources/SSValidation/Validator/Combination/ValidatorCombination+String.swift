@@ -14,6 +14,6 @@ public extension Validator where Source == String {
     }
 
     func andDouble(_ otherValidation: Validator<Double>) -> Validator {
-        and(otherValidation, byMapping: { Double($0) }, errorMessage: ValidationMessage.invalid)
+        and(otherValidation, byMapping: { Double($0.replacingCommaWithDot) }, errorMessage: ValidationMessage.invalid)
     }
 }
