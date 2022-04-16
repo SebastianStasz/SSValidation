@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct InputField<T>: View {
     @ObservedObject private var viewModel: InputVM<T>
+    @FocusState private var isFocued: Bool
 
     private let title: String
     private let prompt: Text?
@@ -27,7 +28,15 @@ public struct InputField<T>: View {
     public var body: some View {
         TextField(title, text: $viewModel.textInput, prompt: prompt)
             .keyboardType(viewModel.keyboardType)
+            .focused($isFocued)
             .onChange(of: viewModel.textInput, perform: viewModel.textChanged(to:))
+            .onChange(of: isFocued, perform: focusChanged)
+    }
+
+    private func focusChanged(_ isFocued: Bool) {
+        if !isFocued {
+            viewModel.textInput = viewModel.textInput.trim
+        }
     }
 }
 

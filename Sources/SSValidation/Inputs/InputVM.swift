@@ -50,6 +50,7 @@ public class InputVM<T>: ObservableObject {
     }
 
     func textChanged(to newText: String) {
+        let newText = newText.trim
         if isValueAllowed(newText) {
             allowedText = newText
         } else {
