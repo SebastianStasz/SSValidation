@@ -70,10 +70,6 @@ public class InputVM<T>: ObservableObject {
     var defaultKeyboardType: UIKeyboardType {
         .default
     }
-
-    var keyboardType: UIKeyboardType {
-        settings.keyboardType ?? defaultKeyboardType
-    }
 }
 
 #if DEBUG

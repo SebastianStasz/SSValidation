@@ -20,7 +20,7 @@ extension Validator {
         return validator(object)
     }
 
-    public static func alwaysValid() -> Validator {
+    public static var alwaysValid: Validator {
         Validator { _ in .valid }
     }
 }

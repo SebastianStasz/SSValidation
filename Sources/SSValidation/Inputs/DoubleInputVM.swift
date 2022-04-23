@@ -24,10 +24,9 @@ public class DoubleInputVM: InputVM<Double> {
         initialValue: String? = nil,
         dropFirstValidationMessage: Bool = true,
         allowedTextRegex: String? = nil,
-        validator: Validator<String> = .notEmpty(),
-        keyboardType: UIKeyboardType? = nil
+        validator: Validator<String> = .notEmpty()
     ) {
-        self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator, keyboardType: keyboardType))
+        self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator))
     }
 
     public func setValue(to value: Double?) {
