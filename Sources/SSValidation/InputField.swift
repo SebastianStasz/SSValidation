@@ -44,20 +44,20 @@ public struct InputField<T>: View {
             }
         }
         .keyboardType(keyboardType)
-        .focused($isFocued)
-        .onSubmit(of: .text, didSubmit)
+//        .focused($isFocued)
+//        .onSubmit(of: .text, didSubmit)
         .onChange(of: viewModel.textInput, perform: viewModel.textChanged(to:))
         .onChange(of: isFocued, perform: focusChanged)
     }
 
-    private func didSubmit() {
-        if viewModel.validationState.isValid {
-            isFocued = false
-        } else {
-            viewModel.textChanged(to: viewModel.textInput)
-            isFocued = true
-        }
-    }
+//    private func didSubmit() {
+//        if viewModel.validationState.isValid {
+//            isFocued = false
+//        } else {
+//            viewModel.textChanged(to: viewModel.textInput)
+//            isFocued = true
+//        }
+//    }
 
     private func focusChanged(_ isFocued: Bool) {
         if !isFocued {

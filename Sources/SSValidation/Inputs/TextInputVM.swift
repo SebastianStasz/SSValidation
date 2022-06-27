@@ -24,11 +24,12 @@ public class TextInputVM: InputVM<String> {
 
     public convenience init(
         initialValue: String? = nil,
-        dropFirstValidationMessage: Bool = true,
+        validator: Validator<String> = .notEmpty(),
         allowedTextRegex: String? = nil,
-        validator: Validator<String> = .notEmpty()
+        dropFirstValidationMessage: Bool = true,
+        validationDelay: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
     ) {
-        self.init(with: .init(initialValue: initialValue, dropFirstValidationMessage: dropFirstValidationMessage, allowedTextRegex: allowedTextRegex, validator: validator))
+        self.init(with: .init(initialValue: initialValue, validator: validator, allowedTextRegex: allowedTextRegex, dropFirstValidationMessage: dropFirstValidationMessage, validationDelay: validationDelay))
     }
 
     public func setText(to text: String?) {

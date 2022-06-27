@@ -8,6 +8,7 @@
 import Foundation
 
 public enum ValidationState: Equatable {
+    case unknown
     case valid
     case invalid(msg: String)
 }
@@ -15,6 +16,8 @@ public enum ValidationState: Equatable {
 public extension ValidationState {
     var isValid: Bool {
         switch self {
+        case .unknown:
+            return false
         case .valid:
             return true
         case .invalid:

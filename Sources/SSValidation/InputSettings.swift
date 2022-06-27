@@ -9,20 +9,23 @@ import Foundation
 
 public struct InputSettings {
     let initialValue: String?
-    let dropFirstValidationMessage: Bool
-    let allowedTextRegex: String?
     let validator: Validator<String>
+    let allowedTextRegex: String?
+    let dropFirstValidationMessage: Bool
+    let validationDelay: DispatchQueue.SchedulerTimeType.Stride
 
     public init(
         initialValue: String? = nil,
-        dropFirstValidationMessage: Bool = true,
+        validator: Validator<String> = .notEmpty(),
         allowedTextRegex: String? = nil,
-        validator: Validator<String> = .notEmpty()
+        dropFirstValidationMessage: Bool = true,
+        validationDelay: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
     ) {
         self.initialValue = initialValue
-        self.dropFirstValidationMessage = dropFirstValidationMessage
-        self.allowedTextRegex = allowedTextRegex
         self.validator = validator
+        self.allowedTextRegex = allowedTextRegex
+        self.dropFirstValidationMessage = dropFirstValidationMessage
+        self.validationDelay = validationDelay
     }
 }
 
