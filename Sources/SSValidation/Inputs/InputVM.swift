@@ -60,9 +60,10 @@ public class InputVM<T>: ObservableObject {
     }
 
     func textChanged(to newText: String) {
-        let newText = newText.trim
-        if isValueAllowed(newText) {
-            allowedText = newText
+        let resultText = newText.trim
+        if isValueAllowed(resultText) {
+            allowedText = resultText
+            textInput = newText.trimLeadingSpaces
         } else {
             textInput = allowedText
         }
