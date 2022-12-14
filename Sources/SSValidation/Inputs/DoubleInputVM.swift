@@ -2,7 +2,7 @@
 //  DoubleInputVM.swift
 //  SSValidation
 //
-//  Created by sebastianstaszczyk on 19/03/2022.
+//  Created by Sebastian Staszczyk on 19/03/2022.
 //
 
 import Combine

@@ -2,7 +2,7 @@
 //  InputSettings.swift
 //  SSValidation
 //
-//  Created by sebastianstaszczyk on 21/03/2022.
+//  Created by Sebastian Staszczyk on 21/03/2022.
 //
 
 import Foundation

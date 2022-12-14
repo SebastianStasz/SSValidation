@@ -2,7 +2,7 @@
 //  TextInputVM.swift
 //  SSValidation
 //
-//  Created by sebastianstaszczyk on 20/03/2022.
+//  Created by Sebastian Staszczyk on 20/03/2022.
 //
 
 import Combine

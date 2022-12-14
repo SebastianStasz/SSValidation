@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "SSUtils",
-        "repositoryURL": "https://github.com/SebastianStasz/SSUtils",
-        "state": {
-          "branch": null,
-          "revision": "2bb70571b133cb7cb9ee06bae176e4995114fac7",
-          "version": "1.0.12"
-        }
+  "pins" : [
+    {
+      "identity" : "ssutils",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SebastianStasz/SSUtils",
+      "state" : {
+        "revision" : "6f085c8f0f59a3e25d5310886c1e6e6ef4287411",
+        "version" : "1.0.2"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

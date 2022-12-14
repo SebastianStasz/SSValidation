@@ -2,7 +2,7 @@
 //  Validator+Common.swift
 //  SSValidation
 //
-//  Created by sebastianstaszczyk on 22/04/2022.
+//  Created by Sebastian Staszczyk on 22/04/2022.
 //
 
 import Foundation
