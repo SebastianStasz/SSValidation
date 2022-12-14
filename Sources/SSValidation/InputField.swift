@@ -14,6 +14,7 @@ public struct InputField<T>: View {
     private let title: String
     private let prompt: Text?
     private let mapValue: ((T) -> String)?
+    private let isMultiline: Bool
     private let isSecure: Bool
     private let keyboardType: UIKeyboardType
 
@@ -22,6 +23,7 @@ public struct InputField<T>: View {
         viewModel: InputVM<T>,
         prompt: Text,
         mapValue: ((T) -> String)? = nil,
+        isMultiline: Bool = false,
         isSecure: Bool = false,
         keyboardType: UIKeyboardType? = nil
     ) {
@@ -29,6 +31,7 @@ public struct InputField<T>: View {
         self.viewModel = viewModel
         self.prompt = prompt
         self.mapValue = mapValue
+        self.isMultiline = isMultiline
         self.isSecure = isSecure
         self.keyboardType = keyboardType ?? viewModel.defaultKeyboardType
     }
@@ -46,7 +49,7 @@ public struct InputField<T>: View {
         if isSecure {
             SecureField(title, text: textFieldValue, prompt: prompt)
         } else {
-            TextField(title, text: textFieldValue, prompt: prompt)
+            TextField(title, text: textFieldValue, prompt: prompt, axis: isMultiline ? .vertical : .horizontal)
         }
     }
 
@@ -75,12 +78,14 @@ extension InputField {
         viewModel: InputVM<T>,
         prompt: String? = nil,
         mapValue: ((T) -> String)? = nil,
+        isMultiline: Bool = false,
         isSecure: Bool = false,
         keyboardType: UIKeyboardType? = nil
     ) {
         self.title = title
         self.viewModel = viewModel
         self.mapValue = mapValue
+        self.isMultiline = isMultiline
         self.isSecure = isSecure
         self.keyboardType = keyboardType ?? viewModel.defaultKeyboardType
 
