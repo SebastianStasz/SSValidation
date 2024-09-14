@@ -37,9 +37,5 @@ public class DecimalInputVM: InputVM<Decimal> {
     override func isValueAllowed(_ value: String) -> Bool {
         value.isEmpty || (value.replacingCommaWithDot.asDouble.notNil && fulfillRequirements(value))
     }
-
-    override var defaultKeyboardType: UIKeyboardType {
-        .decimalPad
-    }
 }
 

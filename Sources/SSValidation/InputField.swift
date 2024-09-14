@@ -9,14 +9,13 @@ import SwiftUI
 
 public struct InputField<T>: View {
     @ObservedObject private var viewModel: InputVM<T>
-    @FocusState private var isFocued: Bool
+    @FocusState private var isFocused: Bool
 
     private let title: String
     private let prompt: Text?
     private let mapValue: ((T) -> String)?
     private let isMultiline: Bool
     private let isSecure: Bool
-    private let keyboardType: UIKeyboardType
 
     public init(
         _ title: String,
@@ -24,8 +23,7 @@ public struct InputField<T>: View {
         prompt: Text,
         mapValue: ((T) -> String)? = nil,
         isMultiline: Bool = false,
-        isSecure: Bool = false,
-        keyboardType: UIKeyboardType? = nil
+        isSecure: Bool = false
     ) {
         self.title = title
         self.viewModel = viewModel
@@ -33,15 +31,13 @@ public struct InputField<T>: View {
         self.mapValue = mapValue
         self.isMultiline = isMultiline
         self.isSecure = isSecure
-        self.keyboardType = keyboardType ?? viewModel.defaultKeyboardType
     }
 
     public var body: some View {
         textField
-            .focused($isFocued)
-            .keyboardType(keyboardType)
+            .focused($isFocused)
             .onChange(of: viewModel.textInput, perform: viewModel.textChanged)
-            .onChange(of: isFocued, perform: focusChanged)
+            .onChange(of: isFocused, perform: focusChanged)
     }
 
     @ViewBuilder
@@ -56,12 +52,14 @@ public struct InputField<T>: View {
     private var textFieldValue: Binding<String> {
         Binding(
             get: { getStringForTextField() },
-            set: { viewModel.textInput = $0 }
+            set: { text in
+                DispatchQueue.main.async { viewModel.textInput = text }
+            }
         )
     }
 
     private func getStringForTextField() -> String {
-        if !isFocued, let mapInput = mapValue, let value = viewModel.resultValue {
+        if !isFocused, let mapInput = mapValue, let value = viewModel.resultValue {
             return mapInput(value)
         }
         return viewModel.textInput
@@ -79,15 +77,13 @@ extension InputField {
         prompt: String? = nil,
         mapValue: ((T) -> String)? = nil,
         isMultiline: Bool = false,
-        isSecure: Bool = false,
-        keyboardType: UIKeyboardType? = nil
+        isSecure: Bool = false
     ) {
         self.title = title
         self.viewModel = viewModel
         self.mapValue = mapValue
         self.isMultiline = isMultiline
         self.isSecure = isSecure
-        self.keyboardType = keyboardType ?? viewModel.defaultKeyboardType
 
         if let prompt = prompt {
             self.prompt = Text(prompt)

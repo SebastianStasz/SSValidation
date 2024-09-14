@@ -37,8 +37,4 @@ public class IntInputVM: InputVM<Int> {
     override func isValueAllowed(_ value: String) -> Bool {
         value.isEmpty || (value.asInt.notNil && fulfillRequirements(value))
     }
-
-    override var defaultKeyboardType: UIKeyboardType {
-        .numberPad
-    }
 }

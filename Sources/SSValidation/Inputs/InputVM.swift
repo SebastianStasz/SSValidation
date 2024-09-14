@@ -38,21 +38,20 @@ public class InputVM<T>: ObservableObject {
             .dropFirst(settings.dropFirst + 1)
 
         Publishers.Merge(firstValidation, validationState)
-            .removeDuplicates()
             .map { $0.validationMessage }
             .assign(to: &$validationMessage)
     }
 
-    public func result() -> Driver<T?> {
-        $resultValue.asDriver
+    public func result() -> Driver<T?> where T: Equatable {
+        $resultValue.removeDuplicates().asDriver()
     }
 
-    public func assignResult<Object: CombineHelper>(to keyPath: ReferenceWritableKeyPath<Object, T?>, on object: Object) {
+    public func assignResult<Object: CombineHelper>(to keyPath: ReferenceWritableKeyPath<Object, T?>, on object: Object) where T: Equatable {
         result().weakAssign(to: keyPath, on: object)
     }
 
     public var isValid: Driver<Bool> {
-        $validationState.map { $0.isValid }.asDriver
+        $validationState.map { $0.isValid }.asDriver()
     }
 
     public func setText(_ text: String?) {
@@ -76,10 +75,6 @@ public class InputVM<T>: ObservableObject {
 
     func isValueAllowed(_ value: String) -> Bool {
         true
-    }
-
-    var defaultKeyboardType: UIKeyboardType {
-        .default
     }
 }
 
